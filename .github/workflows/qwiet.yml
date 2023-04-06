@@ -26,7 +26,6 @@ jobs:
         #####
         # Run Qwiet analysis
         if [ -e "${GITHUB_WORKSPACE}/cpg_out" ]; then
-          ls -lh ${GITHUB_WORKSPACE}/cpg_out
           for i in `ls ${GITHUB_WORKSPACE}/cpg_out/*.manifest.json`; do
             cpg=$(jq -r ".cpg" $i)
             sbom=$(jq -r ".sbom" $i)
