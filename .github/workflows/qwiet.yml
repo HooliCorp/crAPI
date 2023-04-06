@@ -31,7 +31,7 @@ jobs:
             cpg=$(jq -r ".cpg" $i)
             sbom=$(jq -r ".sbom" $i)
             language=$(jq -r ".language" $i)
-            ${GITHUB_WORKSPACE}/sl analyze --tag app.group=$(basename $(pwd)) --app $(basename $(pwd))-$language --$language --cpgupload $cpg --bomupload $sbom --oss-project-dir .
+            ${GITHUB_WORKSPACE}/sl analyze --verbose --tag app.group=$(basename $(pwd)) --app $(basename $(pwd))-$language --$language --cpgupload $cpg --bomupload $sbom
           done
         else
           echo "CPG was not generated successfully"
