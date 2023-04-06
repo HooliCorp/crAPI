@@ -30,8 +30,9 @@ jobs:
           for i in `ls ${GITHUB_WORKSPACE}/cpg_out/*.manifest.json`; do
             cpg=$(jq -r ".cpg" $i)
             sbom=$(jq -r ".sbom" $i)
+            app=$(jq -r ".app" $i)
             language=$(jq -r ".language" $i)
-            ${GITHUB_WORKSPACE}/sl analyze --tag app.group=$(basename $(pwd)) --app $(basename $(pwd))-$language --$language --cpgupload $cpg --bomupload $sbom
+            ${GITHUB_WORKSPACE}/sl analyze --tag app.group=$(basename $(pwd)) --app $app --$language --cpgupload $cpg --bomupload $sbom
           done
         else
           echo "CPG was not generated successfully"
