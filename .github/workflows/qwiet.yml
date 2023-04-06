@@ -29,6 +29,7 @@ jobs:
           ls -lh ${GITHUB_WORKSPACE}/cpg_out
           for i in `ls ${GITHUB_WORKSPACE}/cpg_out/*.manifest.json`; do
             cpg=$(jq -r ".cpg" $i)
+            chmod 755 $cpg
             sbom=$(jq -r ".sbom" $i)
             language=$(jq -r ".language" $i)
             ${GITHUB_WORKSPACE}/sl analyze --verbose --tag app.group=$(basename $(pwd)) --app $(basename $(pwd))-$language --$language --cpgupload $cpg --bomupload $sbom
