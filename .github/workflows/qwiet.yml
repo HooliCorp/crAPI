@@ -29,7 +29,6 @@ jobs:
           ls -lh ${GITHUB_WORKSPACE}/cpg_out
           for i in `ls ${GITHUB_WORKSPACE}/cpg_out/*.manifest.json`; do
             cpg=$(jq -r ".cpg" $i)
-            chmod 755 $cpg
             sbom=$(jq -r ".sbom" $i)
             language=$(jq -r ".language" $i)
             ${GITHUB_WORKSPACE}/sl analyze --verbose --tag app.group=$(basename $(pwd)) --app $(basename $(pwd))-$language --$language --cpgupload $cpg --bomupload $sbom
@@ -41,3 +40,8 @@ jobs:
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload cpg
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: cpg
+        path: cpg_out
