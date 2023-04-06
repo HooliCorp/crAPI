@@ -31,8 +31,9 @@ jobs:
             cpg=$(jq -r ".cpg" $i)
             sbom=$(jq -r ".sbom" $i)
             app=$(jq -r ".app" $i)
+            group=$(jq -r ".group" $i)
             language=$(jq -r ".language" $i)
-            ${GITHUB_WORKSPACE}/sl analyze --tag app.group=$(basename $(pwd)) --app $app --$language --cpgupload $cpg --bomupload $sbom
+            ${GITHUB_WORKSPACE}/sl analyze --tag app.group=$group --app $app --$language --cpgupload --bomupload $sbom $cpg
           done
         else
           echo "CPG was not generated successfully"
